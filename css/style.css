@@ -52,7 +52,7 @@ html {
 /*ProductList*/
 .productlist main {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 290px));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 2rem;
 }
 .productlist main h2 {
