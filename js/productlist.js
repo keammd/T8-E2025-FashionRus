@@ -1,25 +1,25 @@
 "use strict";
 
 const productListContainer = document.querySelector("main");
-// loadJSON("https://kea-alt-del.dk/t7/api/products?articletype=Backpacks");
-loadJSON("https://kea-alt-del.dk/t7/api/products");
-async function loadJSON(url) {
-  const response = await fetch(url);
-  const jsonData = await response.json();
-  makeList(jsonData);
+
+getData("https://kea-alt-del.dk/t7/api/products");
+
+function getData(url) {
+  console.log("getData ....");
+  fetch(url).then((res) => res.json().then((data) => makeList(data)));
 }
 function makeList(data) {
   console.log("DATA", data);
-  productListContainer.innerHTML = " <h2>Apparel</h2>";
+  productListContainer.innerHTML = "<h2>Apparel</h2>";
   data.forEach((product) => {
-    productListContainer.innerHTML += `<article class="smallProduct">
-        <img src="https://kea-alt-del.dk/t7/images/webp/640/1525.webp" alt="product image" />
-        <h3>Big Cat Backpack Black</h3>
-        <p class="subtle">Tshirts | Nike</p>
-        <p class="price">DKK <span>1595</span>,-</p>
+    productListContainer.innerHTML += `<article class="smallProduct ${product.discount === null ? "" : "onSale discounted"} ${product.soldout ? "soldOut" : ""}">
+        <img src="https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp" alt="product image" />
+        <h3>${product.productdisplayname}</h3>
+        <p class="subtle">${product.articletype} | ${product.brandname}</p>
+        <p class="price">DKK <span>${product.price}</span>,-</p>
         <div class="discounted">
-          <p>Now DKK <span></span>,-</p>
-          <p><span></span>%</p>
+          <p>Now DKK <span>${product.price - (product.price * product.discount) / 100}</span>,-</p>
+          <p><span>${product.discount}</span>%</p>
         </div>
         <a href="product.html">Read More</a>
       </article>`;
