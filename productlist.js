@@ -10,7 +10,7 @@ function showProducts(products) {
   products.forEach((product) => {
     console.log("productdisplayname", product.productdisplayname);
     productContainer.innerHTML += `
-    <article class="smallProduct onSale discounted">
+    <article class="smallProduct   ${product.discount === null ? "" : "onSale"}">
       <img src="https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp" alt="product image" />
       <h3>${product.productdisplayname}</h3>
       <p class="subtle">Tshirts | Nike</p>
