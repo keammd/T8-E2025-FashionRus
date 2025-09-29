@@ -1,6 +1,8 @@
 console.log("loaded ....");
 
-const id = 1538;
+// const id = 1538;
+const id = new URLSearchParams(window.location.search).get("id");
+
 // const productUrl = "https://kea-alt-del.dk/t7/api/products/" + id;
 const productUrl = `https://kea-alt-del.dk/t7/api/products/${id}`;
 
