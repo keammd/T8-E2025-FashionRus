@@ -1,17 +1,26 @@
 console.log("HEJ FRA PRODUCT LIST");
 const productContainer = document.querySelector(".product_container");
-getData("https://kea-alt-del.dk/t7/api/products");
+
+const category = new URLSearchParams(window.location.search).get("category");
+
+getData(`https://kea-alt-del.dk/t7/api/products?category=${category}`);
 function getData(url) {
   fetch(url).then((res) => res.json().then((data) => showProducts(data)));
 }
+
+productContainer.innerHTML += `<h2>${category}</h2>`;
 
 function showProducts(products) {
   console.log("products", products);
   products.forEach((product) => {
     console.log("productdisplayname", product.productdisplayname);
     productContainer.innerHTML += `
-    <article class="smallProduct   ${product.discount === null ? "" : "onSale"}">
-      <img src="https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp" alt="product image" />
+    <article class="smallProduct   ${
+      product.discount === null ? "" : "onSale"
+    }">
+      <img src="https://kea-alt-del.dk/t7/images/webp/640/${
+        product.id
+      }.webp" alt="product image" />
       <h3>${product.productdisplayname}</h3>
       <p class="subtle">Tshirts | Nike</p>
       <p class="price">
@@ -25,7 +34,7 @@ function showProducts(products) {
           <span>30</span>%
         </p>
       </div>
-      <a href="product.html">Read More</a>
+      <a href="product.html?id=${product.id}">Read More</a>
     </article>`;
   });
 }
